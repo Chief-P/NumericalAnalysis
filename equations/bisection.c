@@ -1,7 +1,6 @@
 /*
  * find the root of the equation f(x) = 0
- * use bisection method
- * trivial implementation
+ * bisection method
  * pros: always converges
  * cons: slow & cannot find multiple or complex roots
  */
@@ -26,6 +25,7 @@ double bisect(function f, double a, double b, double threshold, int iterations)
     for (int i = 0; i < iterations; ++i)
     {
         p = a + (b - a) / 2; // compute p_i, avoid upper overflow, lower overflow is tolerable
+        // printf("%f\n", p);
         if (!f(p) || b - a < threshold)
             return p;
         if (sgn(f(a)) * sgn(f(p)) > 0) // use sgn to save time
