@@ -40,12 +40,15 @@ void doolittle(double *A, double *b, int n)
             A[j * n + i] /= A[i * n + i];
         }
     }
+
     for (int j = 0; j < n - 1; ++j) // solve Ly = b, forward substitution
         for (int i = j + 1; i < n; ++i)
             b[i] -= A[i * n + j] * b[j];
     for (int j = n - 1; j > 0; --j) // solv Ux = y, backward substitution
         for (int i = j - 1; i >= 0; --i)
             b[i] -= A[i * n + j] / A[j * n + j] * b[j];
+    for (int i = 0; i < n; ++i)
+        b[i] /= A[i * n + i];
 }
 
 int main()
@@ -71,6 +74,15 @@ int main()
 
     doolittle(A, b, n);
 
+    printf("A:\n");
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < n; ++j)
+            printf("%f ", A[i* n + j]);
+        printf("\n");
+    }
+
+    printf("b:\n");
     for (int i = 0; i < n + 1 - 1; ++i)
         printf("%f\n", b[i]);
 
